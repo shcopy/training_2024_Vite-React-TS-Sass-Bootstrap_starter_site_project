@@ -1,0 +1,335 @@
+/* ------------------------------------------------------------------------------- */
+// 既有的變數覆蓋成自訂參數，並且拿掉 !default 
+
+// scss-docs-start theme-color-variables
+$primary:       #BF9D7D;;
+// $secondary:     $gray-600;
+$success:       #52DD7E;
+$info:          #3BADEF;
+$warning:       #DA3E51;
+$danger:        #DA3E51; 
+// $light:         $gray-100;
+$dark:          #000000; 
+
+$theme-color: (
+    'primary':       #BF9D7D,
+    //'secondary':     $gray-600,
+    'success':       #52DD7E,
+    'info':          #3BADEF,
+    'warning':       #DA3E51,
+    'danger':        #DA3E51, 
+    //'light':         $gray-100,
+    'dark':          #000000, 
+);
+
+// scss-docs-end theme-color-variables
+
+$body-bg: #000;
+$body-color: #07ffa8;
+$dart-bg: #140F0A;
+$border-radius: .4rem;
+
+// color 
+$red: #DA3E51;
+$success: #7952b3;
+$bar-dark-color: #140F0A;
+
+
+
+
+// Bootstrap匯入的方法有兩種:
+// ----------------------------------------------------------------------------
+// 1.全部匯入 
+// Custom.scss
+// Option A: Include all of Bootstrap
+
+// Include any default variable overrides here (though functions won't be available)
+// Import all of Bootstrap's CSS
+
+/* 
+   包著所有的元件載入，包e_modules 含格線系統、按鈕、手風琴、表單等等。
+   若是專案都需要用到，可以直接引入到專案中，雖然非常方便，但是缺點就是很大一包。
+*/
+@import "bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+// ----------------------------------------------------------------------------
+
+// 2.部分匯入 
+// Option B: Include parts of Bootstrap
+
+// 1. 必要 Include functions first (so you can manipulate colors, SVGs, calc, etc)
+@import "bootstrap/scss/functions";
+
+// 2. 自訂變數 Include any default variable overrides here
+/*
+  同一 Sass 檔案中的變數可以在預設變數之前或之後覆蓋。
+  但是，當覆蓋橫跨 Sass 檔案時，您必須在導入 Bootstrap 的 Sass 檔案之前進行覆蓋。
+*/
+// ex: @import "修改原有變數、map 的 scss";
+// @import "./utils/custom_variables";  // Bootstrap 變數覆蓋
+
+// 3. 必要  Include remainder of required Bootstrap stylesheets
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+//----------------------------------------------------------
+
+//---- 修改 map 既有子變數
+
+// bs 裡，map 裡出現過的變數，都可以找到額外設定一個獨立的變數
+
+/*而 map 裡的變數都會從獨立變數匯入
+想要更改 map 就必須從獨立變數改起，map 則維持原樣 */
+
+// scss-docs-start spacer-variables-maps
+// $spacers: map-merge($spacers, );
+// $spacer: 1rem;
+// $spacers: (
+//   0: 0,                // 0px
+//   1: $spacer * 0.25,   // 4px
+//   2: $spacer * 0.5,    // 8px
+//   3: $spacer * 0.75,   // 12px
+//   4: $spacer * 1,      // 16px
+//   5: $spacer * 1.25,   // 20px
+//   6: $spacer * 1.5,    // 24px
+//   7: $spacer * 1.75,   // 28px
+//   8: $spacer * 2,      // 32px
+//   9: $spacer * 2.25,   // 36px
+//   10: $spacer * 2.5,   // 40px
+//   11: $spacer * 2.75,  // 44px
+//   12: $spacer * 3,     // 48px
+//   13: $spacer * 3.25,  // 52px
+//   14: $spacer * 3.5,   // 56px
+//   15: $spacer * 3.75,  // 60px
+//   16: $spacer * 4,     // 64px
+//   17: $spacer * 4.25,  // 68px
+//   18: $spacer * 4.5,   // 72px
+//   19: $spacer * 4.75,  // 76px
+//   20: $spacer * 5,     // 80px
+//   21: $spacer * 5.25,  // 84px
+//   22: $spacer * 5.5,   // 88px
+//   23: $spacer * 5.75,  // 92px
+//   24: $spacer * 6,     // 96px
+//   25: $spacer * 6.25,  // 100px
+//   26: $spacer * 6.5,   // 104px
+//   27: $spacer * 6.75,  // 108px
+//   28: $spacer * 7,     // 112px
+//   29: $spacer * 7.25,  // 116px
+//   30: $spacer * 7.5,   // 120px
+//   31: $spacer * 7.75,  // 124px
+//   32: $spacer * 8,     // 128px
+//   33: $spacer * 8.25,  // 132px
+//   34: $spacer * 8.5,   // 136px
+//   35: $spacer * 8.75,  // 140px
+//   36: $spacer * 9,     // 144px
+//   37: $spacer * 9.25,  // 148px
+//   38: $spacer * 9.5,   // 152px
+//   39: $spacer * 9.75,  // 156px
+//   40: $spacer * 10,    // 160px
+//   41: $spacer * 10.25, // 164px
+//   42: $spacer * 10.5,  // 168px
+//   43: $spacer * 10.75, // 172px
+//   44: $spacer * 11,    // 176px
+//   45: $spacer * 11.25, // 180px
+//   46: $spacer * 11.5,  // 184px
+//   47: $spacer * 11.75, // 188px
+//   48: $spacer * 12,    // 192px
+//   49: $spacer * 12.25, // 196px
+//   50: $spacer * 12.5,  // 200px
+//   51: $spacer * 12.75, // 204px
+//   52: $spacer * 13,    // 208px
+//   53: $spacer * 13.25, // 212px
+//   54: $spacer * 13.5,  // 216px
+//   55: $spacer * 13.75, // 220px
+//   56: $spacer * 14,    // 224px
+//   57: $spacer * 14.25, // 228px
+//   58: $spacer * 14.5,  // 232px
+//   59: $spacer * 14.75, // 236px
+//   60: $spacer * 15,    // 240px
+//   61: $spacer * 15.25, // 244px
+//   62: $spacer * 15.5,  // 248px
+//   63: $spacer * 15.75, // 252px
+//   64: $spacer * 16,    // 256px
+//   65: $spacer * 16.25, // 260px
+//   66: $spacer * 16.5,  // 264px
+//   67: $spacer * 16.75, // 268px
+//   68: $spacer * 17,    // 272px
+//   69: $spacer * 17.25, // 276px
+//   70: $spacer * 17.5,  // 280px
+//   71: $spacer * 17.75, // 284px
+//   72: $spacer * 18,    // 288px
+//   73: $spacer * 18.25, // 292px
+//   74: $spacer * 18.5,  // 296px
+//   75: $spacer * 18.75, // 300px
+//   76: $spacer * 19,    // 304px
+//   77: $spacer * 19.25, // 308px
+//   78: $spacer * 19.5,  // 312px
+//   79: $spacer * 19.75, // 316px
+//   80: $spacer * 20,    // 320px
+//   81: $spacer * 20.25, // 324px
+//   82: $spacer * 20.5,  // 328px
+//   83: $spacer * 20.75, // 332px
+//   84: $spacer * 21,    // 336px
+//   85: $spacer * 21.25, // 340px
+//   86: $spacer * 21.5,  // 344px
+//   87: $spacer * 21.75, // 348px
+//   88: $spacer * 22,    // 352px
+//   89: $spacer * 22.25, // 356px
+//   90: $spacer * 22.5,  // 360px
+//   91: $spacer * 22.75, // 364px
+//   92: $spacer * 23,    // 368px
+//   93: $spacer * 23.25, // 372px
+//   94: $spacer * 23.5,  // 376px
+//   95: $spacer * 23.75, // 380px
+//   96: $spacer * 24,    // 384px
+//   97: $spacer * 24.25, // 388px
+//   98: $spacer * 24.5,  // 392px
+//   99: $spacer * 24.75, // 396px
+//   100: $spacer * 25,   // 400px
+//   101: $spacer * 25.25, // 404px
+//   102: $spacer * 25.5,  // 408px
+//   103: $spacer * 25.75, // 412px
+//   104: $spacer * 26,    // 416px
+//   105: $spacer * 26.25, // 420px
+//   106: $spacer * 26.5,  // 424px
+//   107: $spacer * 26.75, // 428px
+//   108: $spacer * 27,    // 432px
+//   109: $spacer * 27.25, // 436px
+//   110: $spacer * 27.5,  // 440px
+//   111: $spacer * 27.75, // 444px
+//   112: $spacer * 28,    // 448px
+//   113: $spacer * 28.25, // 452px
+//   114: $spacer * 28.5,  // 456px
+//   115: $spacer * 28.75, // 460px
+//   116: $spacer * 29,    // 464px
+//   117: $spacer * 29.25, // 468px
+//   118: $spacer * 29.5,  // 472px
+//   119: $spacer * 29.75, // 476px
+//   120: $spacer * 30,    // 480px
+//   121: $spacer * 30.25, // 484px
+//   122: $spacer * 30.5,  // 488px
+//   123: $spacer * 30.75, // 492px
+//   124: $spacer * 31,    // 496px
+//   125: $spacer * 31.25, // 500px
+//   126: $spacer * 31.5,  // 504px
+//   127: $spacer * 31.75, // 508px
+//   128: $spacer * 32,    // 512px
+//   129: $spacer * 32.25, // 516px
+//   130: $spacer * 32.5,  // 520px
+//   131: $spacer * 32.75, // 524px
+//   132: $spacer * 33,    // 528px
+//   133: $spacer * 33.25, // 532px
+//   134: $spacer * 33.5,  // 536px
+//   135: $spacer * 33.75, // 540px
+//   136: $spacer * 34,    // 544px
+//   137: $spacer * 34.25, // 548px
+//   138: $spacer * 34.5,  // 552px
+//   139: $spacer * 34.75, // 556px
+//   140: $spacer * 35,    // 560px
+//   141: $spacer * 35.25, // 564px
+//   142: $spacer * 35.5,  // 568px
+//   143: $spacer * 35.75, // 572px
+//   144: $spacer * 36,    // 576px
+//   145: $spacer * 36.25, // 580px
+//   146: $spacer * 36.5,  // 584px
+//   147: $spacer * 36.75, // 588px
+//   148: $spacer * 37,    // 592px
+//   149: $spacer * 37.25, // 596px
+//   150: $spacer * 37.5,  // 600px
+// );
+// scss-docs-end spacer-variables-maps
+
+// scss-docs-start font-variables
+// stylelint-disable value-keyword-case
+$font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+// scss-docs-end font-variables
+
+// scss-docs-start font-sizes
+// $font-sizes: (
+//   1: $font-size-base * 3,   // 48px  .fs-1
+//   2: $font-size-base * 2.5,   // 40px  .fs-2
+//   3: $font-size-base * 2,   // 32px  .fs-3
+//   4: $font-size-base * 1.75,   // 28px  .fs-4
+//   5: $font-size-base * 1.5,   // 24px  .fs-5
+//   6: $font-size-base * 1.25,   // 20px  .fs-6
+//   7: $font-size-base * 1,   // 16px  .fs-7
+//   8: $font-size-base * 0.875,   // 14px  .fs-8
+//   9: $font-size-base * 0.75,   // 12px  .fs-9
+//   10: $font-size-base * 0.625, // 10px  .fs-10
+// );
+// scss-docs-end font-sizes
+
+
+
+
+/*
+$primary: #0074d9;
+$danger: #ff4136;
+$theme-colors: (
+  "primary": $primary,
+  "danger": $danger
+);
+*/
+// 簡單來說，修改變數的動作，與修改 map 是一樣的
+
+//----------------------------------------------------------
+
+// ----- 新增子變數至 map
+/*一旦是要無中生有或是化有為無的動作就要特別小心
+這個動作就是無中生有的部分 */
+
+// 要在預設變數匯入之後進行
+// 新建的 map 包含子變數
+/*
+ex:
+    $custom-colors: (
+        "custom-color": #900
+    );
+
+// 與 既有的 map Merge 起來 
+// $theme-colors: map-merge($theme-colors, $custom-colors);
+*/
+
+$font-sizes: map-merge($font-sizes, (
+    1: $font-size-base * 3,   // 48px  .fs-1
+    2: $font-size-base * 2.5,   // 40px  .fs-2
+    3: $font-size-base * 2,   // 32px  .fs-3
+    4: $font-size-base * 1.75,   // 28px  .fs-4
+    5: $font-size-base * 1.5,   // 24px  .fs-5
+    6: $font-size-base * 1.25,   // 20px  .fs-6
+    7: $font-size-base * 1,   // 16px  .fs-7
+    8: $font-size-base * 0.875,   // 14px  .fs-8
+    9: $font-size-base * 0.75,   // 12px  .fs-9
+    10: $font-size-base * 0.625, // 10px  .fs-10
+));
+
+//----------------------------------------------------------
+// 刪除 map 既有子變數
+/* 刪除原本 map 裡面的內容，時機跟上述的不太一樣，
+   要在必須的檔案匯入後再執行 */
+// $theme-colors: map-remove($theme-colors, "info", "light", "dark");
+
+//----------------------------------------------------------
+
+// 4. Include any optional Bootstrap components as you like
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+// 5. Add additional custom code here
+
+//////////////////////////////////////////
+@import './layout/header.scss';
+@import './layout/footer.scss';
+
+@import './pages/index.scss';
+
+/* with util */
+// @import "./utils/custom_typography";
+// @import "./utils/custom_utilities";  // Bootstrap 變數覆蓋
+// @import "./utils/custom_variables";  // Bootstrap 變數覆蓋

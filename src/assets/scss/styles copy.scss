@@ -1,0 +1,108 @@
+// Bootstrap匯入的方法有兩種:
+// ----------------------------------------------------------------------------
+// 1.全部匯入 
+// Custom.scss
+// Option A: Include all of Bootstrap
+// 選項 A: 放入完整 bs 檔
+
+// Include any default variable overrides here (though functions won't be available)
+// Import all of Bootstrap's CSS
+// 匯入欲覆蓋既有變數的自訂變數（但 function 不會運作）
+/* 
+   包著所有的元件載入，包e_modules 含格線系統、按鈕、手風琴、表單等等。
+   若是專案都需要用到，可以直接引入到專案中，雖然非常方便，但是缺點就是很大一包。
+*/
+// @import "bootstrap/scss/bootstrap";
+
+// Then add additional custom code here
+// 匯入新增的自訂變數
+// ex: @import "./utils/custom_typography";
+
+// =========================================================================================
+
+// 2.部分匯入 
+// Option B: Include parts of Bootstrap
+// 選項 B: 放入部分 bs 檔（只放專案有用到的部份）
+
+// 1. 必要 Include functions first (so you can manipulate colors, SVGs, calc, etc)
+ /* 匯入 functions (按照這個順序，後面可以啟動 manipulate colors, SVGs, calc 等功能) */
+// @import "bootstrap/scss/functions";
+
+/* ------------------------------------------------------------------------------- */
+// 2. 自訂變數 Include any default variable overrides here
+/* 匯入欲覆蓋既有變數的自訂變數 */
+/* 同一 Sass 檔案中的變數可以在預設變數之前或之後覆蓋。
+  但是，當覆蓋橫跨 Sass 檔案時，您必須在導入 Bootstrap 的 Sass 檔案之前進行覆蓋。 */
+// ex: @import "修改原有變數、map 的 scss";
+// @import "./utils/custom_variables";  // Bootstrap 變數覆蓋
+
+/* ------------------------------------------------------------------------------- */
+// 既有的變數覆蓋成自訂參數，並且拿掉 !default 
+// $body-bg: #000;
+// $body-color: #111;
+
+// 修改 map 既有子變數
+/* bs 裡，map 裡出現過的變數，都可以找到額外設定一個獨立的變數
+  而 map 裡的變數都會從獨立變數匯入
+  想要更改 map 就必須從獨立變數改起，map 則維持原樣 */
+
+// $primary: #0074d9;
+// $danger: #ff4136;
+
+// $theme-colors: (
+//   "primary": $primary,
+//   "danger": $danger
+// );
+// 簡單來說，修改變數的動作，與修改 map 是一樣的
+
+// 新增子變數至 map
+/* 一旦是要無中生有或是化有為無的動作就要特別小心
+   這個動作就是無中生有的部分 */
+
+// 要在預設變數匯入之後進行
+// 新建的 map 包含子變數
+// $custom-colors: (
+//   "custom-color": #900
+// );
+
+// 與 既有的 map Merge 起來 
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+/* ------------------------------------------------------------------------------- */
+// 3. 必要  Include remainder of required Bootstrap stylesheets
+// 匯入運作 bs 必須的檔案（包含原本的變數檔案）
+// 匯入檔案，!default 的參數若是已經有遭到更改，則不會讀取
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// 刪除 map 既有子變數
+/* 刪除原本 map 裡面的內容，時機跟上述的不太一樣，
+   要在必須的檔案匯入後再執行 */
+//$theme-colors: map-remove($theme-colors, "info", "light", "dark");
+
+/* ------------------------------------------------------------------------------- */
+// 4. Include any optional Bootstrap components as you like
+//   匯入「新增或刪除」的自訂變數
+// ex: @improt "刪除或新增 map 的 scss";
+
+// 4. 匯入選用的 bs 檔案（專案有用到的部份）
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+/* ------------------------------------------------------------------------------- */
+// 5. Add additional custom code here
+//  匯入其餘自訂的 scss 檔案
+//  ex: @import "其他手刻檔案";
+@import './layout/header.scss';
+@import './layout/footer.scss';
+
+@import './pages/index.scss';
+
+/* with util */
+@import "./utils/custom_typography";
+// @import "./utils/custom_utilities";  // Bootstrap 變數覆蓋
+//////////////////////////////////////////
